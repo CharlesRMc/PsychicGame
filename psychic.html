@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Psychic</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<div class="row">
+	<p id="wins" class="col-md-2">Wins: </p>
+	<p id="losses" class="col-md-2">Losses: </p>
+	<p id="lives" class="col-md-2">Guesses Left: </p>
+	</div>
+	<div class="row">
+	<p class="col-md-offset-4">Letters Guessed:<span id="lettersGuessed"></span> </p>
+	</div>
+	<div class="row">
+	<p class="col-md-offset-4">Guess the Psychic's Letter:<span id="userGuess"></span></p>
+	</div>
+	
+
+	<script>
+	var choices = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+	var computerGuess = choices[Math.floor(Math.random()*choices.length)];
+	console.log(computerGuess)
+	var losses = 0;
+	var wins = 0;
+	var lives = 9;
+	var reset = function (){
+		lives = 9;
+		computerGuess = choices[Math.floor(Math.random()*choices.length)];
+		guessedLetters = [];
+		document.getElementById('lives').innerHTML = 'Guesses Left:' + " " + lives;
+		document.getElementById('lettersGuessed').innerHTML = " " + guessedLetters;
+		console.log(computerGuess)
+	};
+	var guessedLetters = [];
+	var lettersGuessed = function () {
+		document.getElementById('lettersGuessed');
+		
+	}
+	document.getElementById('lives').innerHTML = 'Guesses Left:' + " " + lives;
+		
+		
+	document.onkeyup= function(event) {
+	
+	var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+		document.getElementById('userGuess').innerHTML = ' ' + userGuess;
+		guessedLetters.push(userGuess);
+		document.getElementById('lettersGuessed').innerHTML = " " + guessedLetters;	
+
+		if (userGuess === computerGuess) {
+			wins ++;
+			document.getElementById('wins').innerHTML = 'Wins:' + " " + wins;
+			reset();
+			guessedLetters = [];
+		}
+		
+		else if (userGuess != computerGuess) {
+			lives --;
+			document.getElementById('lives').innerHTML = 'Guesses Left:' + " " + lives;
+
+			if (lives <= 0) {
+				losses++;
+				document.getElementById('losses').innerHTML = 'Losses:' + " " + losses;
+				reset();
+				guessedLetters = [];
+			}
+		}
+
+	}
+	</script>
+	
+</body>
+
+</html>
